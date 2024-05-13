@@ -1,50 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import useForm from '../../hooks/form';
+import { TodoContext, TodoData } from '../../Context/Settings';
 
-import { v4 as uuid } from 'uuid';
+
 
 const Todo = () => {
-
+  const todoState = useContext<{addItem: () => void, totalItems: Array<TodoData>, toggleComplete: () => void, pageItems: number}>(TodoContext)
   const [defaultValues] = useState({
     difficulty: 4,
   });
-  const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState([]);
-  const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
+  const { handleChange, handleSubmit } = useForm(todoState.addItem, defaultValues);
 
-  function addItem(item) {
-    item.id = uuid();
-    item.complete = false;
-    console.log(item);
-    setList([...list, item]);
-  }
+  // function addItem(item) {
+  //   item.id = uuid();
+  //   item.complete = false;
+  //   console.log(item);
+  //   setList([...list, item]);
+  // }
 
-  function deleteItem(id) {
-    const items = list.filter( item => item.id !== id );
-    setList(items);
-  }
+  // function deleteItem(id) {
+  //   const items = list.filter( item => item.id !== id );
+  //   setList(items);
+  // }
 
-  function toggleComplete(id) {
+  // function toggleComplete(id) {
 
-    const items = list.map( item => {
-      if ( item.id === id ) {
-        item.complete = ! item.complete;
-      }
-      return item;
-    });
+  //   const items = list.map( item => {
+  //     if ( item.id === id ) {
+  //       item.completed = ! item.completed;
+  //     }
+  //     return item;
+  //   });
 
-    setList(items);
+  //   setList(items);
 
-  }
+  // }
 
   useEffect(() => {
-    let incompleteCount = list.filter(item => !item.complete).length;
+    const incompleteCount = todoState.totalItems.filter(item => !item.completed).length;
     setIncomplete(incompleteCount);
     document.title = `To Do List: ${incomplete}`;
     // linter will want 'incomplete' added to dependency array unnecessarily. 
     // disable code used to avoid linter warning 
     // eslint-disable-next-line react-hooks/exhaustive-deps 
-  }, [list]);  
+  }, [todoState.totalItems]);  
 
   return (
     <>
@@ -76,12 +76,12 @@ const Todo = () => {
         </label>
       </form>
 
-      {list.map(item => (
+      {todoState.totalItems.map(item => (
         <div key={item.id}>
           <p>{item.text}</p>
           <p><small>Assigned to: {item.assignee}</small></p>
           <p><small>Difficulty: {item.difficulty}</small></p>
-          <div onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
+          <div onClick={() => toggleComplete(item.id)}>Complete: {item.completed.toString()}</div>
           <hr />
         </div>
       ))}

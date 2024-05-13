@@ -26,7 +26,7 @@ Any environment configuration steps.
 
 ## Architecture
 
-Describe how the project is structured.
+![](public/Screenshot 2024-05-13 at 2.01.16 PM.png)
 
 ### Languages & tools
 
