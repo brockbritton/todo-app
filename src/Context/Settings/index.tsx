@@ -21,7 +21,7 @@ export default function TodoProvider({children}: childrenType) {
     const [pageItems, setPageItems] = useState(3);
     //const [hideCompleted, setHideCompleted] = useState(true);
     //const [difficulty, setDifficulty] = useState('3');
-    const [totalItems, setTotalItems] = useState<Array<TodoData>>([{id: "me123456789", text:"eat", assignee: "brock", difficulty: "5", completed: false}])
+    const [totalItems, setTotalItems] = useState<Array<TodoData>>([])
     
     function addItem(item) {
         item.id = uuid();
@@ -30,8 +30,7 @@ export default function TodoProvider({children}: childrenType) {
         setTotalItems([...totalItems, item]);
     }
 
-    function toggleComplete(id) {
-
+    function toggleComplete(id: uuid) {
         const items = totalItems.map( item => {
           if ( item.id === id ) {
             item.completed = ! item.completed;
@@ -40,7 +39,6 @@ export default function TodoProvider({children}: childrenType) {
         });
     
         setTotalItems(items);
-    
     } 
 
     return (
