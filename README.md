@@ -26,7 +26,7 @@ Any environment configuration steps.
 
 ## Architecture
 
-![](public/Screenshot 2024-05-13 at 2.01.16 PM.png)
+![](./public/Screenshot%202024-05-13%20at%202.01.16 PM.png)
 
 ### Languages & tools
 
