@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import useForm from '../../hooks/form.js';
 import { ItemsContext } from '../../Context/Items';
 import { Stack } from '@mantine/core';
+import Auth from '../Auth';
 
 
 export default function NewTodoForm() {
@@ -20,26 +21,28 @@ export default function NewTodoForm() {
         justify="center"
         gap="md"
       >
-        <h2>Add To Do Item</h2>
+        <Auth capability="create">
+          <h2>Add To Do Item</h2>
 
-        <label>
-          <span>To Do Item  </span>
-          <input onChange={handleChange} name="text" type="text" placeholder="Item Details" />
-        </label>
+          <label>
+            <span>To Do Item  </span>
+            <input onChange={handleChange} name="text" type="text" placeholder="Item Details" />
+          </label>
 
-        <label>
-          <span>Assigned To  </span>
-          <input onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
-        </label>
+          <label>
+            <span>Assigned To  </span>
+            <input onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
+          </label>
 
-        <label>
-          <span>Difficulty </span>
-          <input onChange={handleChange} defaultValue={defaultValues.difficulty} type="range" min={1} max={5} name="difficulty" />
-        </label>
+          <label>
+            <span>Difficulty </span>
+            <input onChange={handleChange} defaultValue={defaultValues.difficulty} type="range" min={1} max={5} name="difficulty" />
+          </label>
 
-        <label>
-          <button type="submit">Add Item</button>
-        </label>
+          <label>
+            <button type="submit">Add Item</button>
+          </label>
+        </Auth>
       </Stack>
 
     </form>
